@@ -57,10 +57,14 @@ function recenter() {
 function center_to_current_position() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
-            var latlng = google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            var latlng = new google.maps.LatLng(
+                    position.coords.latitude, position.coords.longitude
+                    );
+            console.log(latlng);
             map.setCenter(latlng);
             if (current_position_marker == null) {
                 current_position_marker = new google.maps.Marker({position: latlng});
+                current_position_marker.setMap(map);
             } else {
                 current_position_marker.setPosition(latlng);
             }
