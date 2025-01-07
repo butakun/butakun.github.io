@@ -2,14 +2,26 @@
   <head>
   </head>
   <body>
-    <canvas id="chart"></canvas>
+    <div>
+      <canvas id="chart", width="100%"></canvas>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
+    <script type="module">
       const data = await fetch('https://butakun-getklik.web.val.run').then((r) => r.json());
-      console.log(data)
 
       const ctx = document.getElementById('chart');
+
+      var chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: data.map((d) => d.datetime),
+          datasets: [{
+            label: "Kirsebærvænget",
+            data: data.map((d) => d.count),
+            }]
+          },
+        });
     </script>
   </body>
 </html>
