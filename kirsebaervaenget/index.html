@@ -15,7 +15,15 @@
       var chart = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: data.map((d) => d.datetime),
+          labels: data.map((d) => {
+            const dt = new Date(d.datetime + 'Z');
+            const hour = dt.getHours();
+            if (hour == 0) {
+              return dt.toDateString();
+            } else {
+              return "";
+            }
+          }),
           datasets: [{
             label: "Kirsebærvænget",
             data: data.map((d) => d.count),
